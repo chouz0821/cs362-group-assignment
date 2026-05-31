@@ -6,7 +6,7 @@ def my_datetime(num_sec):
     pass
 
 
-def conv_endian(num, endian = 'big'):
+def conv_endian(num, endian='big'):
     if endian != 'big' and endian != 'little':
         return None
 
