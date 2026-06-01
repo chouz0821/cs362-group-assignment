@@ -48,7 +48,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(my_datetime(0), '01-01-1970')
     
     def test_date_sequential(self):
-        self.assertEqual(my_datetime(12345679), '11-29-1973')
+        self.assertEqual(my_datetime(123456789), '11-29-1973')
     
     def test_date_reverse(self):
         self.assertEqual(my_datetime(9876543210), '12-22-2282')
