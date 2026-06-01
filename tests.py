@@ -1,11 +1,60 @@
 import unittest
-from task import conv_endian, my_datetime
+from task import conv_endian, my_datetime, conv_num
 
 
 class TestCase(unittest.TestCase):
 
-    def test1(self):
-        self.assertTrue(True)
+    # conv_num tests
+    def test_integer(self):
+        self.assertEqual(conv_num("12345"), 12345)
+
+    def test_float(self):
+        self.assertEqual(conv_num("-123.45"), -123.45)
+
+    def test_float_no_left_digit(self):
+        self.assertEqual(conv_num(".45"), 0.45)
+
+    def test_float_no_right_digit(self):
+        res = conv_num("123.")
+
+        self.assertEqual(res, 123.0)
+        self.assertIsInstance(res, float)
+
+    def test_hex(self):
+        self.assertEqual(conv_num("0xAD4"), 2772)
+
+    def test_hex_upper_x_lower_digits(self):
+        self.assertEqual(conv_num("0Xad4"), 2772)
+
+    def test_negative_hex(self):
+        self.assertEqual(conv_num("-0xAD4"), -2772)
+
+    def test_invalid_hex(self):
+        self.assertIsNone(conv_num("0xAZ4"))
+
+    def test_invalid_alpha(self):
+        self.assertIsNone(conv_num("12345A"))
+
+    def test_multiple_decimal(self):
+        self.assertIsNone(conv_num("12.3.45"))
+
+    def test_none_input(self):
+        self.assertIsNone(conv_num(None))
+
+    def test_non_string_input(self):
+        self.assertIsNone(conv_num(12345))
+
+    def test_empty_string(self):
+        self.assertIsNone(conv_num(""))
+
+    def test_positive_integer(self):
+        self.assertEqual(conv_num("+123"), 123)
+
+    def test_positive_float(self):
+        self.assertEqual(conv_num("+123.45"), 123.45)
+
+    def test_positive_hex(self):
+        self.assertEqual(conv_num("+0xFF"), 255)
 
     # conv_endian test examples
     def test_big_endian(self):

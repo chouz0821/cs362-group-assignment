@@ -1,5 +1,105 @@
+def hex_to_decimal(hex_part):
+    value = 0
+
+    for ch in hex_part:
+        if "0" <= ch <= "9":
+            digit = ord(ch) - ord("0")
+        elif "a" <= ch.lower() <= "f":
+            digit = ord(ch.lower()) - ord("a") + 10
+        else:
+            return None
+
+        value = value * 16 + digit
+
+    return value
+
+
+def int_to_decimal(num_str):
+    value = 0
+
+    for ch in num_str:
+        value = value * 10 + (ord(ch) - ord("0"))
+
+    return value
+
+
+def float_to_decimal(num_str):
+    left, right = num_str.split(".")
+
+    value = 0.0
+
+    for ch in left:
+        value = value * 10 + (ord(ch) - ord("0"))
+
+    decimal_place = 10
+
+    for ch in right:
+        value += (ord(ch) - ord("0")) / decimal_place
+        decimal_place *= 10
+
+    return value
+
+
+def get_sign(num_str):
+    if num_str[0] == "-":
+        return True, num_str[1:]
+
+    if num_str[0] == "+":
+        return False, num_str[1:]
+
+    return False, num_str
+
+
+def is_valid_decimal(num_str):
+    if num_str == ".":
+        return False
+
+    if num_str.count(".") > 1:
+        return False
+
+    for ch in num_str:
+        if ch != "." and not ("0" <= ch <= "9"):
+            return False
+
+    return True
+
+
+def convert_decimal(num_str):
+    if "." in num_str:
+        return float_to_decimal(num_str)
+
+    return int_to_decimal(num_str)
+
+
 def conv_num(num_str):
-    pass
+    if not isinstance(num_str, str) or num_str == "":
+        return None
+
+    negative, num_str = get_sign(num_str)
+
+    if num_str == "":
+        return None
+
+    if len(num_str) >= 2 and num_str[:2].lower() == "0x":
+        hex_part = num_str[2:]
+
+        if hex_part == "" or "." in hex_part:
+            return None
+
+        value = hex_to_decimal(hex_part)
+    else:
+        if not is_valid_decimal(num_str):
+            return None
+
+        value = convert_decimal(num_str)
+
+    if value is None:
+        return None
+
+    if negative:
+        return -value
+
+    return value
 
 
 # A year is a leap year if it is divisable by 4, and is not a century year or is also divisble by 400
