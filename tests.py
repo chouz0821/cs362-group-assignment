@@ -43,20 +43,20 @@ class TestCase(unittest.TestCase):
         self.assertIsNone(conv_endian(954786, ''))
 
     # datetime tests
-    ## example cases
+    # example cases
     def test_date_0(self):
         self.assertEqual(my_datetime(0), '01-01-1970')
-    
+
     def test_date_sequential(self):
         self.assertEqual(my_datetime(123456789), '11-29-1973')
-    
+
     def test_date_reverse(self):
         self.assertEqual(my_datetime(9876543210), '12-22-2282')
-    
+
     def test_date_large(self):
         self.assertEqual(my_datetime(201653971200), '02-29-8360')
 
-    ## edge cases
+    # edge cases
     def test_date_day_boundary(self):
         self.assertEqual(my_datetime(86399), '01-01-1970')
         self.assertEqual(my_datetime(86400), '01-02-1970')
@@ -73,6 +73,7 @@ class TestCase(unittest.TestCase):
 
     def test_date_century_not_leap(self):
         self.assertEqual(my_datetime(4107542400), '03-01-2100')
+
 
 if __name__ == '__main__':
     unittest.main()

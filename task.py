@@ -1,6 +1,7 @@
 def conv_num(num_str):
     pass
 
+
 # A year is a leap year if it is divisable by 4, and is not a century year or is also divisble by 400
 def is_leap_year(year):
     return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
@@ -22,7 +23,7 @@ def my_datetime(num_sec):
     month_days = [31, 29 if is_leap_year(year) else 28, 31, 30, 31, 30,
                   31, 31, 30, 31, 30, 31]
     month = 0
-    #Find month
+    # Find month
     while days >= month_days[month]:
         days -= month_days[month]
         month += 1
