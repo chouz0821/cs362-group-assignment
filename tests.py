@@ -56,5 +56,23 @@ class TestCase(unittest.TestCase):
     def test_date_large(self):
         self.assertEqual(my_datetime(201653971200), '02-29-8360')
 
+    ## edge cases
+    def test_date_day_boundary(self):
+        self.assertEqual(my_datetime(86399), '01-01-1970')
+        self.assertEqual(my_datetime(86400), '01-02-1970')
+
+    def test_date_year_rollover(self):
+        self.assertEqual(my_datetime(31449600), '12-31-1970')
+        self.assertEqual(my_datetime(31536000), '01-01-1971')
+
+    def test_date_leap_day(self):
+        self.assertEqual(my_datetime(68169600), '02-29-1972')
+
+    def test_date_div400_leap(self):
+        self.assertEqual(my_datetime(951782400), '02-29-2000')
+
+    def test_date_century_not_leap(self):
+        self.assertEqual(my_datetime(4107542400), '03-01-2100')
+
 if __name__ == '__main__':
     unittest.main()
