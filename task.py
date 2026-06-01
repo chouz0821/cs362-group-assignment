@@ -26,7 +26,7 @@ def int_to_decimal(num_str):
 def float_to_decimal(num_str):
     left, right = num_str.split(".")
 
-    value = 0
+    value = 0.0
 
     for ch in left:
         value = value * 10 + (ord(ch) - ord("0"))

@@ -15,7 +15,10 @@ class TestCase(unittest.TestCase):
         self.assertEqual(conv_num(".45"), 0.45)
 
     def test_float_no_right_digit(self):
-        self.assertEqual(conv_num("123."), 123.0)
+        res = conv_num("123.")
+
+        self.assertEqual(res, 123.0)
+        self.assertIsInstance(res, float)
 
     def test_hex(self):
         self.assertEqual(conv_num("0xAD4"), 2772)
