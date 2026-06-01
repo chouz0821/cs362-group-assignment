@@ -40,18 +40,43 @@ def float_to_decimal(num_str):
     return value
 
 
+def get_sign(num_str):
+    if num_str[0] == "-":
+        return True, num_str[1:]
+
+    if num_str[0] == "+":
+        return False, num_str[1:]
+
+    return False, num_str
+
+
+def is_valid_decimal(num_str):
+    if num_str == ".":
+        return False
+
+    if num_str.count(".") > 1:
+        return False
+
+    for ch in num_str:
+        if ch != "." and not ("0" <= ch <= "9"):
+            return False
+
+    return True
+
+
+def convert_decimal(num_str):
+    if "." in num_str:
+        return float_to_decimal(num_str)
+
+    return int_to_decimal(num_str)
+
+
 def conv_num(num_str):
     if not isinstance(num_str, str) or num_str == "":
         return None
 
-    negative = False
+    negative, num_str = get_sign(num_str)
 
-    if num_str[0] == "-":
-        negative = True
-        num_str = num_str[1:]
-    elif num_str[0] == "+":
-        num_str = num_str[1:]
-    
     if num_str == "":
         return None
 
@@ -62,30 +87,17 @@ def conv_num(num_str):
             return None
 
         value = hex_to_decimal(hex_part)
-
-        if value is None:
-            return None
-
     else:
-        dot_count = num_str.count(".")
-
-        if dot_count > 1:
+        if not is_valid_decimal(num_str):
             return None
 
-        for ch in num_str:
-            if ch != "." and not ("0" <= ch <= "9"):
-                return None
+        value = convert_decimal(num_str)
 
-        if num_str == ".":
-            return None
-
-        if dot_count == 0:
-            value = int_to_decimal(num_str)
-        else:
-            value = float_to_decimal(num_str)
+    if value is None:
+        return None
 
     if negative:
-        value = -value
+        return -value
 
     return value
 
