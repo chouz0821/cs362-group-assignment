@@ -43,7 +43,7 @@ class TestCase(unittest.TestCase):
 
     def test_empty_string(self):
         self.assertIsNone(conv_num(""))
-    
+
     def test_positive_integer(self):
         self.assertEqual(conv_num("+123"), 123)
 
